@@ -5,6 +5,8 @@ import (
 
 	"github.com/AlexPop69/todo-app"
 	"github.com/AlexPop69/todo-app/pkg/handler"
+	"github.com/AlexPop69/todo-app/pkg/repository"
+	"github.com/AlexPop69/todo-app/pkg/service"
 	"github.com/spf13/viper"
 )
 
@@ -13,12 +15,15 @@ func main() {
 		log.Fatalf("error initializing configs: %s", err.Error())
 	}
 
-	handlers := handler.NewHandler()
+	rep := repository.NewRepository()
+	services := service.NewService(rep)
+	handlers := handler.NewHandler(*services)
 
 	srv := new(todo.Server)
 	if err := srv.Run(viper.GetString("8080"), handlers.InitRoutes()); err != nil {
 		log.Fatalf("error occured while running http server: %s", err.Error())
 	}
+
 }
 
 func initConfig() error {
@@ -26,5 +31,3 @@ func initConfig() error {
 	viper.SetConfigName("config")
 	return viper.ReadInConfig()
 }
-
-
