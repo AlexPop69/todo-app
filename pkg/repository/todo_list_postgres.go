@@ -7,7 +7,6 @@ import (
 
 	"github.com/AlexPop69/todo-app"
 	"github.com/jmoiron/sqlx"
-	"github.com/sirupsen/logrus"
 )
 
 type TodoListPostgres struct {
@@ -108,9 +107,6 @@ func (r *TodoListPostgres) Update(userId, listId int, input todo.UpdateListInput
 		todoListsTable, setQuery, usersListsTable, argId, argId+1)
 
 	args = append(args, listId, userId)
-
-	logrus.Debugf("updateQuery: %s", query)
-	logrus.Debugf("args: %s", args...)
 
 	_, err := r.db.Exec(query, args...)
 
