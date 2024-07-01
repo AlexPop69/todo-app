@@ -29,3 +29,11 @@ func (s *TodoItemService) Add(userId, listId int, item todo.TodoItem) (int, erro
 func (s *TodoItemService) GetAll(userId, listId int) ([]todo.TodoItem, error) {
 	return s.rep.GetAll(userId, listId)
 }
+
+func (s *TodoItemService) GetById(userId, itemId int) (todo.TodoItem, error) {
+	return s.rep.GetById(userId, itemId)
+}
+
+func (s *TodoItemService) Delete(userId, itemId int) error {
+	return s.rep.Delete(userId, itemId)
+}

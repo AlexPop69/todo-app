@@ -1,11 +1,11 @@
 package repository
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/AlexPop69/todo-app"
 	"github.com/jmoiron/sqlx"
-	"github.com/sirupsen/logrus"
 )
 
 type TodoItemPostgres struct {
@@ -36,13 +36,13 @@ func (r *TodoItemPostgres) Add(listId int, item todo.TodoItem) (int, error) {
 
 	addListItemQuery := fmt.Sprintf(`INSERT INTO %s (list_id, item_id)
 										VALUES ($1, $2)`, listsItemsTable)
-	logrus.Println("addListItemQuery:", listId, itemId)
+
 	_, err = tx.Exec(addListItemQuery, listId, itemId)
 	if err != nil {
 		tx.Rollback()
 		return 0, nil
 	}
-	logrus.Println("end")
+
 	return itemId, tx.Commit()
 }
 
@@ -55,11 +55,41 @@ func (r *TodoItemPostgres) GetAll(userId, listId int) ([]todo.TodoItem, error) {
 	 		WHERE li.list_id = $1 AND ul.user_id = $2`,
 		todoItemsTable, listsItemsTable, usersListsTable)
 
-	logrus.Println("GetAll:", listId, userId)
-
 	if err := r.db.Select(&items, query, listId, userId); err != nil {
 		return nil, err
 	}
 
 	return items, nil
+}
+
+func (r *TodoItemPostgres) GetById(userId, itemId int) (todo.TodoItem, error) {
+	var item todo.TodoItem
+
+	query := fmt.Sprintf(`SELECT ti.id, ti.title, ti.description, ti.done
+			FROM %s ti INNER JOIN %s li on li.item_id = ti.id
+			INNER JOIN %s ul on ul.list_id = li.list_id 
+	 		WHERE ti.id = $1 AND ul.user_id = $2`,
+		todoItemsTable, listsItemsTable, usersListsTable)
+
+	if err := r.db.Get(&item, query, itemId, userId); err != nil {
+		return item, err
+	}
+
+	return item, nil
+}
+
+func (r *TodoItemPostgres) Delete(userId, itemId int) error {
+	query := fmt.Sprintf(`DELETE FROM %s ti USING %s li, %s ul 
+		WHERE ti.id = li.item_id AND li.list_id = ul.list_id 
+		AND ul.user_id = $1 AND ti.id = $2`,
+		todoItemsTable, listsItemsTable, usersListsTable)
+
+	del, err := r.db.Exec(query, userId, itemId)
+
+	result, err := del.RowsAffected()
+	if result == 0 {
+		err = errors.New("item does not exist")
+	}
+
+	return err
 }
