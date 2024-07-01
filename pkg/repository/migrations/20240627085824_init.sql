@@ -33,7 +33,7 @@ CREATE TABLE todo_items
 CREATE TABLE lists_items
 (
     id SERIAL PRIMARY KEY,
-    user_id INT REFERENCES users (id) ON DELETE CASCADE NOT NULL,
+    item_id INT REFERENCES todo_items (id) ON DELETE CASCADE NOT NULL,
     list_id INT REFERENCES todo_lists (id) ON DELETE CASCADE NOT NULL
 );
 
