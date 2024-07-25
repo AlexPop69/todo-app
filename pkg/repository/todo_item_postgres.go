@@ -36,7 +36,7 @@ func (r *TodoItemPostgres) Add(listId int, item todo.TodoItem) (int, error) {
 	}
 
 	addListItemQuery := fmt.Sprintf(`INSERT INTO %s (list_id, item_id)
-										VALUES ($1, $2)`, listsItemsTable)
+		VALUES ($1, $2)`, listsItemsTable)
 
 	_, err = tx.Exec(addListItemQuery, listId, itemId)
 	if err != nil {
