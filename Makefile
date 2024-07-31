@@ -7,3 +7,5 @@ test:
 migrate:
 	goose -dir pkg/repository/migrations postgres "postgresql://postgres:postgres@localhost:5432?sslmode=disable" up
 
+swag:
+	swag init -g cmd/main.go
