@@ -21,8 +21,9 @@ Backend с базовым набором функционала, с исполь
     - изменить задачу;
     - удалить задачу 
 
-## Запуск приложения в docker 🚀
-В корне проекта ввести в консоли команду `make run`
+## Запуск приложения 🚀
+ - **В Docker:** в файле `configs/config.yml` изменить значение `host` на `"db"`, в корне проекта ввести в консоли команду `make run docker`
+ - **На локальной машине:** в файле `configs/config.yml` изменить значение `host` на `"localhost"`, в корне проекта ввести в консоли команду `make run local`
 
 ## Техническое задание 📝
  - **Создать веб-сервер и определить будущие эндпоинты**
@@ -57,6 +58,7 @@ Backend с базовым набором функционала, с исполь
     - Применение миграции `migrate`
  - **Добавить документирование API при помощуи Swagger**
      - Использовал утилиту [swag](https://github.com/swaggo/swag).
+     - http://localhost:8080/swagger/index.html
 
 ## Стек:
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original.svg" 
