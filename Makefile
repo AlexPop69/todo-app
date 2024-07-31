@@ -1,5 +1,9 @@
-run:
+run docker:
 	docker compose up --build todo-app
+
+run local:
+	go build -o todo-app ./cmd/main.go
+	./todo-app
 
 test:
 	go test -v ./...
