@@ -16,6 +16,17 @@ import (
 	"github.com/spf13/viper"
 )
 
+// @title           TODO App API
+// @version         1.0
+// @description     API server for TODO-list application.
+
+// @host      localhost:8080
+// @BasePath  /
+
+// @securitydefinitions.apikey  ApiKeyAuth
+// @in header
+// @name Authorization
+
 func main() {
 	if err := initConfig(); err != nil {
 		logrus.Fatalf("error initializing configs: %s", err.Error())

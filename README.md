@@ -22,7 +22,7 @@ Backend с базовым набором функционала, с исполь
     - удалить задачу 
 
 ## Запуск приложения в docker 🚀
-В корне проекта ввести в консоли команду `docker compose up --build todo-app`
+В корне проекта ввести в консоли команду `make run`
 
 ## Техническое задание 📝
  - **Создать веб-сервер и определить будущие эндпоинты**
@@ -55,6 +55,8 @@ Backend с базовым набором функционала, с исполь
     - Запуск приложения `run`
     - Тестирование приложения `test`
     - Применение миграции `migrate`
+ - **Добавить документирование API при помощуи Swagger**
+     - Использовал утилиту [swag](https://github.com/swaggo/swag).
 
 ## Стек:
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original.svg" 
@@ -66,6 +68,8 @@ Backend с базовым набором функционала, с исполь
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"          
     title="git" width="50" height="50"/>&nbsp;
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg"          
+    title="git" width="50" height="50"/>&nbsp;
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/swagger/swagger-original.svg"          
     title="git" width="50" height="50"/>&nbsp;
 <!--
 -->
